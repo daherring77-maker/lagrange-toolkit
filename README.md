@@ -46,8 +46,9 @@ The application is organized into three progressive levels, each building mathem
 High-quality, interactive figures generated via `matplotlib`, `plotly`, and `scipy`:
 
 - 🎨 **Double Pendulum Trace:** Artistic trajectory plots showcasing chaotic motion, sensitivity to initial conditions, and long-term divergence.
-- ![Double Pendulum Trace](double_pendulum.png) 
-- 🌌 **Lagrange Points Visualisation:** 3D effective potential surfaces with stable (`L4`, `L5`) and unstable (`L1`–`L3`) equilibrium markers.
+- ![Double Pendulum Trace](docs/double_pendulum.png) 
+- 🌌 **Lagrange Points Visualisation Earth-Moon:** 3D effective potential surfaces with stable (`L4`, `L5`) and unstable (`L1`–`L3`) equilibrium markers.
+- ![Lagrange Points](docs/lagrange_points.png) 
 - 🌊 **Mode Shapes (Eigenvectors):** Animated natural vibration modes extracted from MDOF eigenvalue decomposition.
 - 🔄 **Phase Portrait (Harmonic Oscillator):** Position-momentum trajectory flows highlighting periodic orbits, separatrices, and damping effects.
 - 📐 **FEA Radial Displacement Contour:** Color-mapped deformation fields for structural elements under thermal/mechanical loading.
