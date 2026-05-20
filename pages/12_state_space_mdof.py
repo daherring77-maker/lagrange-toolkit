@@ -56,27 +56,69 @@ with tab1:
     with col2:
         st.subheader("Mode Shapes")
         st.markdown("How the system naturally vibrates.")
-        
-        mode_shapes = system.get_mode_shapes()
+    
+        # ───────────────────────────────────────────────────────────────
+        # 1. Build M and K for the current n_dof (replace with your system's logic)
+        # ───────────────────────────────────────────────────────────────
+        m = 1.0  # kg (or pull from sidebar/state)
+        k = 1000.0  # N/m (or pull from sidebar/state)
+
+        M = m * np.eye(n_dof)
+
+        K = np.zeros((n_dof, n_dof))
+        for i in range(n_dof):
+            K[i, i] = 2 * k
+            if i > 0: K[i, i-1] = -k
+            if i < n_dof - 1: K[i, i+1] = -k
+
+        # ───────────────────────────────────────────────────────────────
+        # 2. Solve & sort eigenpairs
+        # ───────────────────────────────────────────────────────────────
+        A = np.linalg.inv(M) @ K
+        eigenvalues, eigenvectors = np.linalg.eig(A)
+
+        # Sort by ω² (eigenvalue magnitude) → guarantees Mode 1 = fundamental
+        sort_idx = np.argsort(np.real(eigenvalues))
+        eigenvalues = eigenvalues[sort_idx]
+        eigenvectors = eigenvectors[:, sort_idx]
+
+        mode_shapes = np.real(eigenvectors)  # Drop numerical imaginary noise
+
+        # ───────────────────────────────────────────────────────────────
+        # 3. Plot
+        # ───────────────────────────────────────────────────────────────
         fig, ax = plt.subplots(figsize=(6, 4))
-        
-        # Plot first 2 mode shapes
-        for i in range(min(2, len(mode_shapes[0]))):
-            # Real part of eigenvector
-            shape = np.real(mode_shapes[:, i])
-            # Normalize
-            shape = shape / np.max(np.abs(shape))
-            ax.plot(range(1, n_dof+1), shape, 'o-', label=f'Mode {i+1}')
-        
+
+        for i in range(n_dof):
+            shape = mode_shapes[:, i]
+            max_abs = np.max(np.abs(shape))
+            
+            if max_abs < 1e-12:
+                continue  # Skip rigid-body/zero modes if present
+                
+            shape /= max_abs
+            omega = np.sqrt(np.real(eigenvalues[i]))
+            
+            ax.plot(range(1, n_dof + 1), shape, 'o-', 
+                    label=f'Mode {i+1} (ω={omega:.2f} rad/s)', linewidth=2)
+
         ax.set_xlabel('Mass Index')
-        ax.set_ylabel('Relative Displacement')
-        ax.set_title('Normalized Mode Shapes')
+        ax.set_ylabel('Normalized Displacement')
+        ax.set_title(f'{n_dof}-DOF Mode Shapes (Sorted by Frequency)')
         ax.grid(True, alpha=0.3)
         ax.legend()
-        ax.set_xticks(range(1, n_dof+1))
-        
-        st.pyplot(fig)
+        ax.set_xticks(range(1, n_dof + 1))
+        ax.set_xlim(0.5, n_dof + 0.5)
 
+        st.pyplot(fig)
+        fig.savefig("mode_shapes.png", dpi=300, bbox_inches="tight")
+        with st.expander("💡 Why do I see 2× modes?"):
+            st.markdown("""
+            - Theoretical: N masses → N natural frequencies → N mode shapes.
+            - Computational: Many solvers use **state-space form**, doubling the system size to 2N.
+            - This returns complex conjugate pairs `(±iω)`. Taking `np.real()` makes each pair look identical.
+            - We keep only the first `N` columns to show the **unique physical modes**.
+            """)
 with tab2:
     st.header("2. State-Space Formulation")
     
