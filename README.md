@@ -50,6 +50,7 @@ High-quality, interactive figures generated via `matplotlib`, `plotly`, and `sci
 - 🌌 **Lagrange Points Visualisation Earth-Moon:** 3D effective potential surfaces with stable (`L4`, `L5`) and unstable (`L1`–`L3`) equilibrium markers.
 - ![Lagrange Points](docs/lagrange_points.png) 
 - 🌊 **Mode Shapes (Eigenvectors):** Animated natural vibration modes extracted from MDOF eigenvalue decomposition.
+- ![Mode Shapes](docs/mode_shapes.png) 
 - 🔄 **Phase Portrait (Harmonic Oscillator):** Position-momentum trajectory flows highlighting periodic orbits, separatrices, and damping effects.
 - 📐 **FEA Radial Displacement Contour:** Color-mapped deformation fields for structural elements under thermal/mechanical loading.
 - ✅ **Analytical Solution Validation:** Overlay of numerical integrations against closed-form solutions with real-time error quantification.
