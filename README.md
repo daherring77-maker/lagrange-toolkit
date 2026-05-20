@@ -51,10 +51,12 @@ High-quality, interactive figures generated via `matplotlib`, `plotly`, and `sci
 - ![Lagrange Points](docs/lagrange_points.png) 
 - 🌊 **Mode Shapes (Eigenvectors):** Animated natural vibration modes extracted from MDOF eigenvalue decomposition.
 - ![Mode Shapes](docs/mode_shapes.png) 
-- 🔄 **Phase Portrait (Harmonic Oscillator):** Position-momentum trajectory flows highlighting periodic orbits, separatrices, and damping effects.
+- 🔄 **Phase Portrait (Double Pendulum):** Position-momentum trajectory flows highlighting chaos.
+- ![Phase Portrait](docs/phase_space.png) 
 - 📐 **FEA Radial Displacement Contour:** Color-mapped deformation fields for structural elements under thermal/mechanical loading.
+- ![FEA Radial](docs/displacement_contour.png) 
 - ✅ **Analytical Solution Validation:** Overlay of numerical integrations against closed-form solutions with real-time error quantification.
-
+- ![Analytical Validation](docs/analytical_compare.png) 
 ---
 
 ## 🛠️ Technical Highlights
